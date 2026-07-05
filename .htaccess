@@ -1,0 +1,6 @@
+# Desactivar la ejecución de scripts PHP en esta carpeta
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .phtml
+ForceType application/octet-stream
+<FilesMatch "(?i)\.(jpg|jpeg|png|gif|pdf)$">
+    ForceType text/plain
+</FilesMatch>

@@ -1,0 +1,154 @@
+/* Paleta de colores pastel moderna */
+:root {
+    --bg-principal: #f4f7f5;       
+    --verde-pastel: #e2f0d9;       
+    --verde-acento: #a8d08d;       
+    --morado-pastel: #f2e9f7;      
+    --morado-acento: #b4a2db;      
+    --texto-oscuro: #2c3e50;       
+}
+
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin: 0; 
+    padding: 30px; 
+    background-color: var(--bg-principal); 
+    color: var(--texto-oscuro);
+}
+
+/* Contenedores con bordes redondeados y sombras */
+header, nav, section, footer { 
+    background: white; 
+    padding: 25px; 
+    margin-bottom: 20px; 
+    border-radius: 16px; 
+    box-shadow: 0 8px 24px rgba(149, 157, 165, 0.08); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(180, 162, 219, 0.15);
+}
+
+/* Encabezado */
+header {
+    background: linear-gradient(135deg, var(--verde-pastel), var(--morado-pastel));
+    border-left: 8px solid var(--morado-acento);
+}
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #4a3b68;
+}
+
+nav {
+    padding: 12px 25px;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+/* Botón y campo de archivo */
+input[type="file"] {
+    background: var(--bg-principal);
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px dashed var(--morado-acento);
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+button[type="submit"] {
+    background: linear-gradient(135deg, var(--morado-acento), #9b84cf);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(180, 162, 219, 0.3);
+    transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(180, 162, 219, 0.5);
+}
+
+/* Estilos de la Tabla */
+table { 
+    width: 100%; 
+    border-collapse: separate; 
+    border-spacing: 0;
+    margin-top: 15px; 
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e8e8e8;
+}
+
+th, td { 
+    padding: 14px 18px; 
+    text-align: left; 
+}
+
+th { 
+    background-color: var(--verde-pastel); 
+    color: #3e602b;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: #fcfdfe;
+}
+
+tr:hover {
+    background-color: var(--morado-pastel); 
+}
+
+table a {
+    text-decoration: none;
+    color: #5b4a8c;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+table a:hover {
+    background-color: rgba(180, 162, 219, 0.2);
+}
+
+.btn-del { 
+    color: #c0392b !important; 
+}
+
+.btn-del:hover {
+    background-color: #fadbd8 !important;
+}
+
+.alert { 
+    padding: 15px; 
+    margin-bottom: 20px; 
+    border-radius: 8px; 
+    background-color: #e2f0d9; 
+    color: #276613; 
+    border-left: 5px solid var(--verde-acento);
+}
+
+.alert-error { 
+    background-color: #fcf3f2; 
+    color: #b03a2e; 
+    border-left: 5px solid #ec7063;
+}
+
+footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #95a5a6;
+    background: transparent;
+    box-shadow: none;
+}

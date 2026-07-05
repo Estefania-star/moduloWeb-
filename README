@@ -1,0 +1,81 @@
+# Módulo Web de Gestión Segura de Archivos (Evidencias)
+
+## 📝 Descripción del Sistema
+Este sistema es una plataforma web limpia y moderna diseñada para que los usuarios puedan subir, listar y eliminar documentos o evidencias de forma ordenada. La interfaz utiliza una paleta de colores pasteles para ofrecer una experiencia visual cómoda y agradable. 
+
+Una de las grandes ventajas de este módulo es su agilidad: **funciona directamente sobre el sistema de archivos del servidor (XAMPP)**, lo que significa que almacena los documentos físicamente en el disco duro y no requiere configurar bases de datos complejas. Además, los archivos y sus títulos no se borran si se cierra la página, se reinicia el navegador o se apaga la computadora.
+
+---
+
+## 📂 Estructura del Proyecto
+Para que el sistema funcione correctamente, los archivos deben estar organizados de la siguiente manera dentro de la carpeta del servidor (`C:\xampp\htdocs\moduloWeb\`):
+
+* **`index.php`**: Es la página principal y la interfaz gráfica del usuario. Se encarga de mostrar el formulario de subida y la tabla con los archivos disponibles.
+* **`subir.php`**: El procesador que recibe los datos del formulario, toma el título de la evidencia y llama a la lógica para guardar el archivo.
+* **`eliminar.php`**: El controlador que atiende las peticiones de borrado y remueve los archivos físicamente.
+* **`GestorArchivos.php`**: La clase principal que contiene toda la lógica interna (POO) para manipular los archivos.
+* **`estilos.css`**: El archivo que le da toda la presentación visual, colores pasteles, sombras y tipografías al sitio.
+* **`uploads/`**: Carpeta especial donde se almacenan físicamente los documentos subidos.
+  * **`.htaccess`**: Archivo de seguridad oculto dentro de `uploads/` que protege la carpeta contra virus o scripts maliciosos.
+
+---
+
+## 🚀 Instrucciones de Uso Detalladas
+
+Para operar la plataforma correctamente y validar su persistencia y seguridad, siga este paso a paso:
+
+### 1. Preparación del Entorno Local
+* Asegúrese de que el panel de control de **XAMPP** esté abierto y los módulos de **Apache** iniciados.
+* Coloque la carpeta del proyecto dentro del directorio de publicación (por ejemplo: `C:\xampp\htdocs\moduloWeb\`).
+* Abra su navegador web de preferencia (Chrome, Edge, Firefox) e ingrese a la dirección local: `http://localhost/moduloWeb/index.php`.
+
+### 2. Proceso para Subir una Nueva Evidencia
+1. **Asignar un Título:** Ubique el campo de texto etiquetado como *"Título o Descripción de la Evidencia"*. Escriba un nombre claro que identifique el documento (por ejemplo: `tarea 1` o `Certificado de Prácticas`). 
+   * *Nota de seguridad:* El sistema limpiará automáticamente cualquier carácter extraño para evitar problemas en el almacenamiento.
+2. **Seleccionar el Archivo Físico:** Haga clic en la caja de selección de archivos (*"Seleccione Archivo"*). Busque en su computadora el documento que desea cargar. El sistema solo aceptará archivos que cumplan estas dos reglas:
+   * **Formatos permitidos:** Documentos PDF (`.pdf`) o imágenes (`.jpg`, `.jpeg`, `.png`).
+   * **Peso máximo:** El archivo no debe superar los 5 MB de tamaño.
+3. **Confirmar la Subida:** Presione el botón principal **"Subir Archivo"**. 
+4. **Verificación de Éxito:** La página se recargará automáticamente y mostrará una alerta verde en la parte superior con el mensaje de éxito. Al mismo tiempo, verá cómo se añade una fila nueva en la tabla inferior.
+
+### 3. Lectura e Interpretación de la Tabla de Resultados
+En la sección inferior de *"Archivos Disponibles"*, el sistema procesa los datos en tiempo real y los divide en columnas organizadas:
+* **Evidencia / Título:** Muestra de forma limpia el nombre amigable que usted escribió en el paso anterior (ej. `tarea 1`).
+* **Nombre de Archivo Seguro:** Muestra el nombre real con el que se congeló el archivo en el disco duro. Verá que es una cadena larga de letras y números aleatorios seguida de la fecha en segundos. Esto demuestra visualmente que el renombrado criptográfico está activo.
+* **Tamaño y Fecha:** Mesta el peso calculado automáticamente en Kilobytes (KB) y la hora exacta en la que el servidor recibió el documento.
+
+### 4. Descarga y Verificación Física en la Computadora
+* **Descarga:** En la columna de acciones, haga clic en **"Descargar"**. El navegador bajará el archivo original de inmediato a su carpeta local de descargas.
+* **Comprobación en el Disco Duro:** Si abre el explorador de archivos de Windows y navega hasta la ruta `C:\xampp\htdocs\moduloWeb\uploads\`, podrá verificar que el archivo está guardado de forma física allí adentro, custodiado de forma invisible por el escudo protector del archivo `.htaccess`.
+
+### 5. Proceso de Eliminación Segura
+1. En la fila del archivo que desea remover, haga clic en el enlace rojo **"Eliminar"**.
+2. El sistema abrirá una ventana flotante de alerta en su navegador preguntando: *¿Seguro que deseas eliminar este archivo?* para evitar accidentes.
+3. Haga clic en **"Aceptar"**. La página se actualizará, el archivo se borrará de forma definitiva del disco duro de la computadora y la tabla se rediseñará mostrando el estado actual.
+
+---
+
+## ⚙️ Explicación de la Clase Utilizada (`GestorArchivos.php`)
+
+Todo el comportamiento del sistema está organizado de manera limpia dentro de una estructura lógica en PHP llamada clase **`GestorArchivos`**. Esta clase actúa como el motor del proyecto y maneja tres tareas principales mediante funciones o métodos públicos:
+
+* **`subir($archivo, $titulo)`**: Recibe el archivo enviado desde el formulario junto con la descripción. Comprueba que cumpla con los límites de tamaño y formato. Luego, une el título del usuario con un código seguro usando tres guiones bajos (`___`) y lo guarda en la carpeta física de destino.
+* **`listar()`**: Revisa la carpeta de almacenamiento de la computadora (`uploads/`), lee los archivos que están guardados ahí y prepara los datos (nombre, tamaño y fecha). En el archivo `index.php`, usamos este listado y separamos el texto del nombre para pintar las dos columnas de forma independiente.
+* **`eliminar($nombre)`**: Se encarga de buscar el archivo exacto que el usuario seleccionó y lo borra físicamente del disco duro de la computadora utilizando la función `unlink()` de PHP.
+
+---
+
+## 🛡️ Medidas de Seguridad Aplicadas
+
+Para garantizar que nadie pueda dañar el servidor o alterar el sistema, se implementó un triple blindaje de seguridad:
+
+1. **Filtro de Tamaño y Tipo Real:** El sistema rechaza automáticamente cualquier archivo que pese más de 5 MB. Además, no se deja engañar por la extensión; revisa el contenido interno del archivo con la herramienta `finfo` de PHP para asegurarse de que sea realmente una foto o un PDF válido y no un script malicioso oculto.
+2. **Renombrado Criptográfico y Control de Rutas:** Al guardar el archivo, el sistema le asigna una clave aleatoria única generada con `random_bytes` junto con la fecha exacta. Esto evita que dos archivos se sobrescriban entre sí. Asimismo, en la función de eliminación se limpia el nombre con `basename()` para evitar ataques de manipulación de rutas (*Path Traversal*).
+3. **Escudo Definitivo con `.htaccess`:** Dentro de la carpeta de almacenamiento (`uploads/`) se colocó un archivo de configuración especial llamado `.htaccess`. Este archivo actúa como un candado total para el servidor: si un atacante consiguiera saltarse los filtros anteriores y subiera un código dañino, las directivas `RemoveHandler` y `ForceType` le prohíben por completo al servidor ejecutarlo, obligándolo a tratarlo como un texto plano inofensivo o una simple descarga.
+
+---
+
+## 💻 Requisitos del Sistema
+* Servidor local activo (XAMPP, Wampserver o Laragon).
+* Versión de PHP 7.4 o superior.
+* Extensión `fileinfo` activada en PHP (viene activa por defecto en XAMPP) para la validación de tipos reales.
